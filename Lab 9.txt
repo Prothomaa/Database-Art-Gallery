@@ -1,0 +1,44 @@
+create or replace trigger price_up
+before insert or update
+on buy
+for each row
+
+begin
+if :new.art_price <800
+then :new.art_price := :new.art_price + 200 ;
+end if;
+end price_up;
+/
+
+//TRANSACTION
+
+delete from payment;
+
+rollback;
+
+select * from payment;
+
+
+insert into payment values (6,4,'debit card',750);
+savepoint cont_6;
+insert into payment values (7,5,'paypal',950);
+savepoint cont_7;
+rollback to cont_7;
+rollback to cont_6;
+
+
+//DATE
+
+
+select ex_start_date, ex_end_date from exhibition where ex_end_date-ex_start_date != 0;
+
+select add_months(ex_start_date, 6) as six_months_extension from exhibition where art_id = 3;
+
+select least(to_date('02-jan-2023'), to_date('21-sep-2023')) from dual ;
+
+select greatest(to_date('02-jan-2023'), to_date('21-sep-2023')) from dual ;
+
+select last_day(ex_start_date) from exhibition ;
+
+select ex_id, extract(month from ex_end_date) as month from exhibition ;
+

@@ -1,0 +1,84 @@
+
+drop table payment;
+drop table cart;
+drop table buy;
+drop table customer;
+drop table publish;
+drop table exhibition;
+drop table artist;
+drop table art;
+
+create table art (
+	art_id integer not null ,
+	art_name varchar(20),
+	art_type varchar(20),
+	primary key (art_id)
+);
+
+create table artist (
+	artist_id integer not null ,
+	artist_fname varchar(20),
+	artist_lname varchar(20),
+	artist_email varchar(20),
+	artist_country varchar(20),
+	art_id integer not null ,
+	art_description varchar(20),
+	primary key (artist_id),
+	foreign key (art_id) references art(art_id) on delete cascade
+);
+
+create table exhibition (
+	ex_id integer not null,
+	ex_start_date date,
+	ex_end_date date,
+	art_id integer not null ,
+	primary key (ex_id),
+	foreign key (art_id) references art(art_id) on delete cascade
+);
+
+create table publish (
+	ex_id integer,
+	artist_id integer,
+	location varchar(20) not null unique,
+	foreign key (ex_id) references exhibition(ex_id) ,
+	foreign key (artist_id) references artist(artist_id) on delete cascade
+);
+
+create table customer (
+	cust_id integer not null,
+	cust_fname varchar(20),
+	cust_lname varchar(20),
+	cust_email varchar(20) not null ,
+	cust_address varchar(20),
+	primary key (cust_id )
+);
+
+create table buy (
+	buy_id integer not null,
+	cust_id integer,
+	art_id integer,
+	art_price integer,
+	rating_out_of_5 integer default 0 ,
+	primary key (buy_id),
+	foreign key (art_id) references art(art_id),
+	foreign key (cust_id) references customer(cust_id)
+);
+
+create table cart (
+	cart_id integer not null,
+	cust_id integer unique,
+	total_cost_in_doller integer,
+	total_ordered_quantity integer,
+	order_date date,
+	primary key (cart_id),
+	foreign key (cust_id) references customer(cust_id)
+);
+
+create table payment (
+	pay_id integer not null,
+	cart_id integer,
+	pay_type varchar(20) not null ,
+	total_amount_in_doller integer,
+	primary key (pay_id),
+	foreign key (cart_id) references cart(cart_id)
+);

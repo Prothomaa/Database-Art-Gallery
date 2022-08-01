@@ -1,0 +1,96 @@
+//CURSOR
+
+set serveroutput on
+declare
+id art.art_id%type;
+name art.art_name%type;
+cursor c1 is select art_id, art_name from art;
+
+begin
+open c1;
+loop
+fetch c1 into id, name;
+exit when c1% notfound;
+dbms_output.put_line('Art no: '|| id || ' ' || 'Art name: ' || name);
+
+end loop;
+close c1;
+
+end;
+/
+
+
+//PROCEDURE
+
+set serveroutput on
+create or replace procedure getName is
+max_quantity cart.total_ordered_quantity%type;
+id cart.cust_id%type;
+email customer.cust_email%type;
+
+begin
+select max(total_ordered_quantity) into max_quantity from cart ;
+select cust_id into id from cart where total_ordered_quantity like max_quantity;
+select cust_email into email from customer where cust_id = id ;
+dbms_output.put_line('Max art ordered customer email: ' || email);
+
+end;
+/
+
+begin
+getName;
+end;
+/
+
+drop procedure getName;
+
+//FUNCTION 
+
+set serveroutput on
+create or replace function getAvgPrice return number is
+avg_price buy.art_price%type;
+
+begin
+select avg(art_price) into avg_price from buy;
+return avg_price;
+
+end;
+/
+
+begin
+dbms_output.put_line('Average art price: ' || getAvgPrice);
+end;
+/
+
+// FUNCTION that take input
+
+set serveroutput on
+create or replace function div_price( amount payment.total_amount_in_doller%type)
+return number is
+pay payment.total_amount_in_doller%type;
+begin
+pay := amount/5;
+return pay;
+
+end div_price;
+/
+
+select pay_type, div_price(total_amount_in_doller) from payment where pay_id = 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

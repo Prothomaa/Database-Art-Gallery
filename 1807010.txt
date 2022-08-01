@@ -1,0 +1,61 @@
+drop table product;
+drop table customer;
+
+create table products(
+pro_num integer not null,
+pro_name varchar(20),
+price,
+primary key (pro_num)
+);
+
+create table customer(
+cust_id integer not null,
+pro_num integer ,
+quantity,
+total_cost,
+primary key (cust_id),
+foreign key (pro_num) references products(pro_num)
+);
+
+alter table products add column pro_brand varchar(20);
+select cust_id, from customer group by pro_name having count(pro_num)>5 order by pro_num desc;
+select * from products p join customer c on p.pro_num=c.pro_name where c.quantity = max(c.quantity);
+
+set serveroutput on 
+create or replace procedure total is
+cost customer.total_cost%type;
+
+begin
+select sum(total_cost) into cost from customer; 
+end;
+/
+
+create or replace trigger checking
+before insert or update
+on products
+for each row
+declare 
+
+begin
+if :new.pro_name = 'laptop'
+then :new.pro_brand = 'hp';
+else if :new.pro_name = 'laptop'
+then :new.pro_brand = 'asus'
+else if :new.pro_name = 'laptop'
+then :new.pro_brand = 'macbook'
+endif;
+
+end;
+/
+
+
+
+
+
+
+
+
+
+
+
+

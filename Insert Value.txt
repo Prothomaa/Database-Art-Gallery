@@ -1,0 +1,80 @@
+
+insert into art values (1,'light','oil painting');
+insert into art values (2,'flower','acrylic painting');
+insert into art values (3,'candle','water painting');
+insert into art values (4,'nature','sketch');
+insert into art values (5,'forest','acrylic painting');
+insert into art values (6,'wild life','photography');
+commit;
+
+insert into artist values (1,'pablo','picasso','pablo@gmail.com','spain',1,'oil painting');
+insert into artist values (2,'vincent','vangogh','vincent@gmail.com','netherlands',2,'acrylic painting');
+insert into artist values (3,'leo','vinchi','leo@gmail.com','italy',4,'acrylic painting');
+insert into artist values (4,'joynul','abedin','joynul@gmail.com','bangladesh',3,'acrylic painting');
+insert into artist values (5,'ver','meer','ver@gmail.com','netherlands',5,'acrylic painting');
+insert into artist values (6,'ver','meer','ver@gmail.com','netherlands',6,'acrylic painting');
+commit;
+
+insert into exhibition values (1,'02-jan-2023','05-jan-2023',1);
+insert into exhibition values (2,'02-jan-2023','05-jan-2023',2);
+insert into exhibition values (3,'02-jan-2023','05-jan-2023',3);
+insert into exhibition values (4,'21-sep-2023','22-sep-2023',4);
+insert into exhibition values (5,'21-sep-2023','22-sep-2023',5);
+insert into exhibition values (6,'21-sep-2023','22-sep-2023',6);
+commit;
+
+insert into publish values (1,1,'usa');
+insert into publish values (2,1,'bangladesh');
+insert into publish values (3,2,'italy');
+insert into publish values (4,3,'korea');
+insert into publish values (5,4,'russia');
+commit;
+
+insert into customer values (1,'john','doe','john@gmail.com','canada');
+insert into customer values (2,'harry','potter','harry@gmail.com','england');
+insert into customer values (3,'jeon','jungkook','jeon@gmail.com','korea');
+insert into customer values (4,'kim','taehyung','kim@gmail.com','korea');
+insert into customer values (5,'park','jimin','park@gmail.com','japan');
+insert into customer (cust_id, cust_lname, cust_email, cust_address) values (6,'namjoon','namjoon@gmail.com','korea');
+insert into customer (cust_id, cust_lname, cust_email, cust_address) values (7,'namjoon','namjoon@gmail.com','korea');
+commit;
+
+insert into buy values (1,1,1,550,4);
+insert into buy values (2,1,2,670,5);
+insert into buy values (3,2,1,550,4);
+insert into buy values (4,3,3,1550,3);
+insert into buy values (5,4,4,750,4);
+insert into buy values (6,5,5,950,5);
+commit;
+
+insert into cart values (1,1,1220,2,'02-mar-2022');
+insert into cart values (2,2,550,1,'05-mar-2022');
+insert into cart values (3,3,1550,1,'15-may-2022');
+insert into cart (cart_id, cust_id, total_cost_in_doller,order_date) values (4,4,750,'17-jul-2022');
+insert into cart values (5,5,950,1,'22-nov-2022');
+commit;
+
+insert into payment values (1,1,'cash on delivery',1220);
+insert into payment values (2,2,'bkash',550);
+insert into payment values (3,3,'bank check',1550);
+insert into payment values (4,4,'debit card',750);
+insert into payment values (5,5,'paypal',950);
+commit;
+
+describe art;
+describe artist;
+describe exhibition;
+describe publish;
+describe customer;
+describe buy;
+describe cart;
+describe payment;
+
+select * from art;
+select * from artist;
+select * from exhibition;
+select * from publish;
+select * from customer;
+select * from buy;
+select * from cart;
+select * from payment;

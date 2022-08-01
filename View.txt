@@ -1,0 +1,8 @@
+create view view_publish as
+select ex_id,artist_id, location 
+from publish
+where location = 'usa';  
+
+select * from view_publish ;
+
+drop view view_publish;

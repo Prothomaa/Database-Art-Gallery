@@ -1,0 +1,59 @@
+select c.order_date, p.total_amount_in_doller from cart c join payment p on c.cart_id = p.cart_id;
+select c.order_date, p.total_amount_in_doller from cart c natural join payment p;
+select c.order_date, p.total_amount_in_doller from cart c cross join payment p;
+
+select c.order_date, p.total_amount_in_doller from cart c left outer join payment p on c.cart_id = p.cart_id;
+select c.order_date, p.total_amount_in_doller from cart c right outer join payment p on c.cart_id = p.cart_id;
+select c.order_date, p.total_amount_in_doller from cart c full outer join payment p on c.cart_id = p.cart_id;
+
+MAX AMOUNT:
+
+select p.total_amount_in_doller from payment p join payment q on p.total_amount_in_doller<q.total_amount_in_doller;
+
+
+
+LAB 7:
+
+set serveroutput on
+declare
+price buy.art_price%type;
+name art.art_name%type;
+begin
+select max(art_price) into price from buy;
+dbms_output.put_line(' Expensive art:' || price);
+end;
+/
+
+
+set serveroutput on
+declare
+price buy.art_price%type;
+name art.art_name%type;
+begin
+select art_name into name from art where art_id in (select art_id from buy where art_price in (select max(art_price) from buy));
+dbms_output.put_line(' Expensive art: ' || name);
+end;
+/
+
+select art_name from art where art_id in (select art_id from buy where art_price in (select max(art_price) from buy));
+select art_id from buy where art_price in (select max(art_price) from buy);
+
+set serveroutput on
+declare
+price buy.art_price%type;
+name art.art_name%type;
+begin
+select max(art_price) into price from buy;
+select art_name into name from art where art_id in (select art_id from buy where art_price like price);
+dbms_output.put_line(' Expensive art: ' || name);
+end;
+/
+
+
+
+
+
+
+
+
+

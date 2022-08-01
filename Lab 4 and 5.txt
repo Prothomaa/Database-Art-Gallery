@@ -1,0 +1,27 @@
+
+select sum(art_price) from buy where cust_id = 1;
+select art_name from art where art_type = 'oil painting';
+select art_name from art where art_id = (select art_id from artist where artist_country = 'spain');
+select max(art_price) from buy;
+select count(*) from customer;
+select count(cust_fname) from customer;
+select avg(nvl(total_ordered_quantity,0)) from cart;
+
+select total_ordered_quantity, count(cart_id) from cart where total_cost_in_doller >800 group by total_ordered_quantity;
+select total_ordered_quantity from cart group by total_ordered_quantity having total_ordered_quantity>=1 ;
+//
+select cust_fname, cust_lname from customer where cust_id = 5
+union
+select c.cust_fname, c.cust_lname from customer c where c.cust_id in(select o.cust_id from buy o where art_price >= 670 ) 
+intersect 
+select cust_fname, cust_lname from customer where cust_id = 5;
+//
+
+//
+select cust_fname, cust_lname from customer where cust_id = 2
+union
+(select c.cust_fname, c.cust_lname from customer c where c.cust_id in(select o.cust_id from buy o where art_price >= 670 )
+minus
+select cust_fname, cust_lname from customer where cust_id = 5);
+//
+
